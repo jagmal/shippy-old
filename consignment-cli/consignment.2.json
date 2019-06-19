@@ -1,0 +1,8 @@
+{
+    "description": "This is second test consignment",
+    "weight": 1001,
+    "containers": [
+        { "customer_id": "cust111", "user_id": "user111", "origin":"Gurugram, Haryana, India"}
+    ],
+    "vessel_id": "vessel111"
+}
