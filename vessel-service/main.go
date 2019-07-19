@@ -7,15 +7,9 @@ import (
 
 	pb "github.com/jagmal/shippy/vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
+	"log"
+	"os"
 )
-
-type Repository interface {
-	FindAvailable(*pb.Specification) (*pb.Vessel, error)
-}
-
-type VesselRepository struct {
-	vessels []*pb.Vessel
-}
 
 // FindAvailable = checks a specification against a map of vessels.
 // if capacity and max weight are below a vessels capacity and max weight,
