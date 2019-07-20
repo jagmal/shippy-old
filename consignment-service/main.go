@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
+	"log"
+	"os"
+
 	pb "github.com/jagmal/shippy/consignment-service/proto/consignment"
 	vesselProto "github.com/jagmal/shippy/vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
-	"log"
-	"os"
 )
 
 const (
@@ -17,7 +18,7 @@ const (
 func main() {
 	// Set-up micro instance
 	srv := micro.NewService(
-		micro.Name("shippy.service.consignment")
+		micro.Name("shippy.service.consignment"),
 	)
 
 	srv.Init()

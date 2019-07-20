@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
+	"log"
+
 	pb "github.com/jagmal/shippy/consignment-service/proto/consignment"
 	vesselProto "github.com/jagmal/shippy/vessel-service/proto/vessel"
-	"log"
 )
 
 type handler struct {
@@ -15,11 +16,11 @@ type handler struct {
 // CreateConsignment - we created just one method on our service,
 // which is a create method, which takes a context and a request as an
 // argument, these are handled by the gRPC server.
-func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Respose) error {
+func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
 
 	// Here we call a client instance of our vessel service with our consignment weight,
 	// and the amout of containers as the capacity value.
-	vesselRespose, err := s.vesselClient.FindAvailable(ctx, &vesselProto.Specification{
+	vesselResponse, err := s.vesselClient.FindAvailable(ctx, &vesselProto.Specification{
 		MaxWeight: req.Weight,
 		Capacity:  int32(len(req.Containers)),
 	})
@@ -29,7 +30,7 @@ func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	}
 
 	// We set the VesselId as the vessel we got back from our vessel service
-	req.VesselId = vesselRespose.Vessel.Id
+	req.VesselId = vesselResponse.Vessel.Id
 
 	// Save our consignment
 	if err = s.repository.Create(req); err != nil {
